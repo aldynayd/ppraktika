@@ -1,0 +1,37 @@
+Parse Tree:
+start (
+ statement (
+  " "
+ )
+ statement (
+  " "
+ )
+ statement (
+  expr (
+   multExpression (
+    atom (
+     "2"
+    )
+   )
+  )
+  " "
+ )
+ statement (
+  " "
+ )
+ statement (
+  expr (
+   multExpression (
+    atom (
+     "1"
+    )
+   )
+  )
+  "
+"
+ )
+ statement (
+  "
+"
+ )
+)
