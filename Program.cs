@@ -12,10 +12,12 @@ namespace Russian
             // командной строки разбираем
             // либо файл с именем, переданным первым параметром,
             // либо стандартный ввод
+            
+
             ICharStream input =
                  args.Length == 1 ?
-            (IcharStream) new ANTLRFileStream(args[0])
-          : (IcharStream) new ANTLRReaderStream(Console.In);
+                (IcharStream) new ANTLRFileStream(args[0])
+                : (IcharStream) new ANTLRReaderStream(Console.In);
             RussianLexer lexer = new RussianLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             RussianParser parser = new RussianParser(tokens);
