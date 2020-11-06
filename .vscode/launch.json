@@ -5,13 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug ANTLR4 grammar",
             "type": "antlr-debug",
             "request": "launch",
-            //"name": "Debug Current Grammar",
-            "name":"antlr4-Russian",
-            "grammar":"Russian.g4",
             "input": "test.txt",
-            "startRule":"expr",
+            "grammar": "Russian.g4",
+            //"actionFile": "grammars/exampleActions.js",
+            "startRule": "start",
+            "printParseTree": true,
             "visualParseTree": true
         }
     ]

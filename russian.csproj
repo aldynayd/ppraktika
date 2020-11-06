@@ -1,0 +1,65 @@
+<PropertyGroup>
+    <C:\Program Files\Java>
+    <JavaHome>C:\Program Files\Java</JavaHome>
+ </PropertyGroup>
+ 
+ <ItemGroup>
+    <Russian Include="Russian.g" />
+ </ItemGroup>
+ 
+ <PropertyGroup>
+     <RussianLexer.cs>
+     @(Russian.g4->'%(C:\Users\darga\Documents\PP\russian\RussianLexer.cs)%(Russian)Lexer.cs')
+    </RussianLexer.cs>
+    <RussianParser.cs>
+      @(Russian.g4->'%(C:\Users\darga\Documents\PP\russian\RussianParser.cs)%(Russian)Parser.cs')
+    </RussianParser.cs>
+    <Russian.tokens>
+      @(Russian.g4->'%(C:\Users\darga\Documents\PP\russian\Russian.tokens)%(Russian).tokens')
+    </Russian.tokens>
+ </PropertyGroup>
+  
+ <ItemGroup>
+    <Compile Include="$(RussianLexer.cs)">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>@(Russian.g4)</DependentUpon>
+    </Compile>
+    <Compile Include="$(RussianParser.cs)">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>@(Russian.g4)</DependentUpon>
+    </Compile>
+    <Compile Include="ParserBaseException.cs" />
+</ItemGroup>
+ <ItemGroup>
+    <Content Include="$(Russian.tokens)">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>@(Russian.g4)</DependentUpon>
+    </Content>
+ </ItemGroup>
+
+ <Target Name="GenerateAntlrCode" Inputs="@(Russian.g4)"
+         Outputs="$(RussianLexer.cs);$(RussianParser.cs);
+                  $(Russian.tokens)">
+ <!-- Следующая команда записывается на одной строке !!! -->
+ <Exec Command="&quot;$(JavaHome)\bin\java&quot; -classpathlib\java\antlr-3.5.2-complete.jar org.antlr.Tool -message-format
+vs2005 @(Russian.g4)" />
+ </Target>
+ <Target Name="CleanAntlrCode">
+    <Delete Files="$(RussianLexer.cs);$(RussianParser.cs)" />
+</Target>
+ 
+ <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+
+ <PropertyGroup>
+    <BuildDependsOn>
+      GenerateAntlrCode;$(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+ <PropertyGroup>
+    <RebuildDependsOn>
+    CleanAntlrCode;$(RebuildDependsOn)
+  </RebuildDependsOn>
+ </PropertyGroup>

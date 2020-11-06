@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:\Users\darga\Documents\PP\russian\Russian.g4 by ANTLR 4.8
+// Generated from Russian.g4 by ANTLR 4.8
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -38,10 +38,10 @@ public partial class RussianParser : Parser {
 	public const int
 		T__0=1, T__1=2, INT=3, ID=4, ADD=5, SUB=6, MUL=7, DIV=8, ASSIGN=9, NEWLINE=10;
 	public const int
-		RULE_russian = 0, RULE_statement = 1, RULE_expr = 2, RULE_multExpression = 3, 
+		RULE_start = 0, RULE_statement = 1, RULE_expr = 2, RULE_multExpression = 3, 
 		RULE_atom = 4;
 	public static readonly string[] ruleNames = {
-		"russian", "statement", "expr", "multExpression", "atom"
+		"start", "statement", "expr", "multExpression", "atom"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -85,24 +85,32 @@ public partial class RussianParser : Parser {
 		Interpreter = new ParserATNSimulator(this, _ATN, decisionToDFA, sharedContextCache);
 	}
 
-	public partial class RussianContext : ParserRuleContext {
+	public partial class StartContext : ParserRuleContext {
 		public StatementContext[] statement() {
 			return GetRuleContexts<StatementContext>();
 		}
 		public StatementContext statement(int i) {
 			return GetRuleContext<StatementContext>(i);
 		}
-		public RussianContext(ParserRuleContext parent, int invokingState)
+		public StartContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_russian; } }
+		public override int RuleIndex { get { return RULE_start; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterStart(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitStart(this);
+		}
 	}
 
 	[RuleVersion(0)]
-	public RussianContext russian() {
-		RussianContext _localctx = new RussianContext(Context, State);
-		EnterRule(_localctx, 0, RULE_russian);
+	public StartContext start() {
+		StartContext _localctx = new StartContext(Context, State);
+		EnterRule(_localctx, 0, RULE_start);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
@@ -145,6 +153,14 @@ public partial class RussianParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_statement; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterStatement(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitStatement(this);
+		}
 	}
 
 	[RuleVersion(0)]
@@ -210,6 +226,14 @@ public partial class RussianParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_expr; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterExpr(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitExpr(this);
+		}
 	}
 
 	[RuleVersion(0)]
@@ -284,6 +308,14 @@ public partial class RussianParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_multExpression; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterMultExpression(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitMultExpression(this);
+		}
 	}
 
 	[RuleVersion(0)]
@@ -347,6 +379,14 @@ public partial class RussianParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_atom; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterAtom(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitAtom(this);
+		}
 	}
 
 	[RuleVersion(0)]

@@ -12,6 +12,7 @@ options
 @parser::namespace { Russian }
 @lexer::namespace  { Russian }
 
+	 
 INT: ('0'..'9')+ ('.' ('0'..'9')+)?
 ;
 ID: ( [0x0430-0x044F] | [0x0410-0x042F] | '_' )
@@ -21,9 +22,11 @@ SUB: 'минус' ;
 MUL: 'умножить на' ;
 DIV: 'разделить на' ;
 ASSIGN: 'равно' ;
-russian	
+
+start
 	: statement+
 	;
+
 statement
 	: expr NEWLINE
 	| ID ASSIGN expr NEWLINE
@@ -44,3 +47,4 @@ atom
 	| INT
 	| '(' expr ')'
 	;
+
