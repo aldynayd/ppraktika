@@ -9,42 +9,69 @@ options
 {
 	language = CSharp;
 }
+
 @parser::namespace { Russian }
 @lexer::namespace  { Russian }
 
-	 
-INT: ('0'..'9')+ ('.' ('0'..'9')+)?
-;
-ID: 
-	( [\u0400-\u04FF] | '_' | '0'..'9' )*;
-ADD: 'плюс' ;
-SUB: 'минус' ;
-MUL: 'умножить на' ;
-DIV: 'разделить на' ;
-ASSIGN: 'равно' ;
-
-start
-	: statement+
-	;
-
-statement
-	: expr NEWLINE
-	| ID ASSIGN expr NEWLINE
-	| NEWLINE
-	;
-NEWLINE : ' ' | '\t' | '\f' | '\r' | '\n'
-	;
+prog
+    : stat+
+    ;
+stat:
+    stat1 op=ASSIGN stat1 NL# assign
+    | stat1 NL # printStat1;
+stat1
+    : expr                               # printExpr
+    ;
 
 expr
-	: multExpression (ADD multExpression |SUB multExpression)*
-	;
-multExpression
-	: a1=atom (MUL a2=atom | DIV a2=atom)*
-	;
-	
-atom
-	: ID
-	| INT
-	| '(' expr ')'
-	;
+    : 
+     expr op=(MOD|MUL|DIV) expr        # ModMulDiv
+    | expr op=(ADD|SUB) expr            # AddSub
+    | ID '(' expr ')'                   # call
+    | sign=('+'|'-') primary            # unary
+    | primary                           # prim
+    ;
 
+primary
+    : NUM                               # num
+    | ID                                # id
+    | '(' expr ')'                      # parens
+    ;
+
+MOD : '%' ;
+
+MUL : '*' ;
+
+DIV : '/' ;
+
+ADD : '+' ;
+
+SUB : '-' ;
+
+ASSIGN : '=';
+
+ID  : Letter (Letter|Digit)* ;
+
+NUM : INT
+    | FLT
+    ;
+
+INT : Digit+ ;
+
+FLT : Digit+ '.' Digit*
+    | '.' Digit+
+    ;
+
+NL  : '\r'? '\n' ;        // return newline to parser (is end-statement signal)
+
+WS  : [ \t]+ -> skip ;    // toss out whitespace
+
+fragment
+Letter
+    : [a-zA-Z_]
+    ;
+
+fragment
+Digit
+    : [0-9]
+    ;

@@ -31,53 +31,145 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface IRussianListener : IParseTreeListener {
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RussianParser.start"/>.
+	/// Enter a parse tree produced by <see cref="RussianParser.prog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterStart([NotNull] RussianParser.StartContext context);
+	void EnterProg([NotNull] RussianParser.ProgContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RussianParser.start"/>.
+	/// Exit a parse tree produced by <see cref="RussianParser.prog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitStart([NotNull] RussianParser.StartContext context);
+	void ExitProg([NotNull] RussianParser.ProgContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RussianParser.statement"/>.
+	/// Enter a parse tree produced by the <c>assign</c>
+	/// labeled alternative in <see cref="RussianParser.stat"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterStatement([NotNull] RussianParser.StatementContext context);
+	void EnterAssign([NotNull] RussianParser.AssignContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RussianParser.statement"/>.
+	/// Exit a parse tree produced by the <c>assign</c>
+	/// labeled alternative in <see cref="RussianParser.stat"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitStatement([NotNull] RussianParser.StatementContext context);
+	void ExitAssign([NotNull] RussianParser.AssignContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RussianParser.expr"/>.
+	/// Enter a parse tree produced by the <c>func</c>
+	/// labeled alternative in <see cref="RussianParser.stat"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterExpr([NotNull] RussianParser.ExprContext context);
+	void EnterFunc([NotNull] RussianParser.FuncContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RussianParser.expr"/>.
+	/// Exit a parse tree produced by the <c>func</c>
+	/// labeled alternative in <see cref="RussianParser.stat"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitExpr([NotNull] RussianParser.ExprContext context);
+	void ExitFunc([NotNull] RussianParser.FuncContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RussianParser.multExpression"/>.
+	/// Enter a parse tree produced by the <c>blank</c>
+	/// labeled alternative in <see cref="RussianParser.stat"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterMultExpression([NotNull] RussianParser.MultExpressionContext context);
+	void EnterBlank([NotNull] RussianParser.BlankContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RussianParser.multExpression"/>.
+	/// Exit a parse tree produced by the <c>blank</c>
+	/// labeled alternative in <see cref="RussianParser.stat"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitMultExpression([NotNull] RussianParser.MultExpressionContext context);
+	void ExitBlank([NotNull] RussianParser.BlankContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="RussianParser.atom"/>.
+	/// Enter a parse tree produced by the <c>call</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAtom([NotNull] RussianParser.AtomContext context);
+	void EnterCall([NotNull] RussianParser.CallContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="RussianParser.atom"/>.
+	/// Exit a parse tree produced by the <c>call</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAtom([NotNull] RussianParser.AtomContext context);
+	void ExitCall([NotNull] RussianParser.CallContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ModMulDiv</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterModMulDiv([NotNull] RussianParser.ModMulDivContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ModMulDiv</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitModMulDiv([NotNull] RussianParser.ModMulDivContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>prim</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPrim([NotNull] RussianParser.PrimContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>prim</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPrim([NotNull] RussianParser.PrimContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>AddSub</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAddSub([NotNull] RussianParser.AddSubContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>AddSub</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAddSub([NotNull] RussianParser.AddSubContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>unary</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterUnary([NotNull] RussianParser.UnaryContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>unary</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitUnary([NotNull] RussianParser.UnaryContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>num</c>
+	/// labeled alternative in <see cref="RussianParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNum([NotNull] RussianParser.NumContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>num</c>
+	/// labeled alternative in <see cref="RussianParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNum([NotNull] RussianParser.NumContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>id</c>
+	/// labeled alternative in <see cref="RussianParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterId([NotNull] RussianParser.IdContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>id</c>
+	/// labeled alternative in <see cref="RussianParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitId([NotNull] RussianParser.IdContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>parens</c>
+	/// labeled alternative in <see cref="RussianParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterParens([NotNull] RussianParser.ParensContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>parens</c>
+	/// labeled alternative in <see cref="RussianParser.primary"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitParens([NotNull] RussianParser.ParensContext context);
 }

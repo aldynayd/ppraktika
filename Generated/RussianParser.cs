@@ -36,22 +36,20 @@ public partial class RussianParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, INT=3, ID=4, ADD=5, SUB=6, MUL=7, DIV=8, ASSIGN=9, NEWLINE=10;
+		T__0=1, T__1=2, MOD=3, MUL=4, DIV=5, ADD=6, SUB=7, ASSIGN=8, ID=9, NUM=10, 
+		INT=11, FLT=12, NL=13, WS=14;
 	public const int
-		RULE_start = 0, RULE_statement = 1, RULE_expr = 2, RULE_multExpression = 3, 
-		RULE_atom = 4;
+		RULE_prog = 0, RULE_stat = 1, RULE_expr = 2, RULE_primary = 3;
 	public static readonly string[] ruleNames = {
-		"start", "statement", "expr", "multExpression", "atom"
+		"prog", "stat", "expr", "primary"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'('", "')'", null, null, "'\u0420\u0457\u0420\u00BB\u0421\u040B\u0421\u0403'", 
-		"'\u0420\u0458\u0420\u0451\u0420\u0405\u0421\u0453\u0421\u0403'", "'\u0421\u0453\u0420\u0458\u0420\u0405\u0420\u0455\u0420\u00B6\u0420\u0451\u0421\u201A\u0421\u040A \u0420\u0405\u0420\u00B0'", 
-		"'\u0421\u0402\u0420\u00B0\u0420\u00B7\u0420\u0491\u0420\u00B5\u0420\u00BB\u0420\u0451\u0421\u201A\u0421\u040A \u0420\u0405\u0420\u00B0'", 
-		"'\u0421\u0402\u0420\u00B0\u0420\u0406\u0420\u0405\u0420\u0455'"
+		null, "'('", "')'", "'%'", "'*'", "'/'", "'+'", "'-'", "'='"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, "INT", "ID", "ADD", "SUB", "MUL", "DIV", "ASSIGN", "NEWLINE"
+		null, null, null, "MOD", "MUL", "DIV", "ADD", "SUB", "ASSIGN", "ID", "NUM", 
+		"INT", "FLT", "NL", "WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -85,49 +83,49 @@ public partial class RussianParser : Parser {
 		Interpreter = new ParserATNSimulator(this, _ATN, decisionToDFA, sharedContextCache);
 	}
 
-	public partial class StartContext : ParserRuleContext {
-		public StatementContext[] statement() {
-			return GetRuleContexts<StatementContext>();
+	public partial class ProgContext : ParserRuleContext {
+		public StatContext[] stat() {
+			return GetRuleContexts<StatContext>();
 		}
-		public StatementContext statement(int i) {
-			return GetRuleContext<StatementContext>(i);
+		public StatContext stat(int i) {
+			return GetRuleContext<StatContext>(i);
 		}
-		public StartContext(ParserRuleContext parent, int invokingState)
+		public ProgContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_start; } }
+		public override int RuleIndex { get { return RULE_prog; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.EnterStart(this);
+			if (typedListener != null) typedListener.EnterProg(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.ExitStart(this);
+			if (typedListener != null) typedListener.ExitProg(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public StartContext start() {
-		StartContext _localctx = new StartContext(Context, State);
-		EnterRule(_localctx, 0, RULE_start);
+	public ProgContext prog() {
+		ProgContext _localctx = new ProgContext(Context, State);
+		EnterRule(_localctx, 0, RULE_prog);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 11;
+			State = 9;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			do {
 				{
 				{
-				State = 10; statement();
+				State = 8; stat();
 				}
 				}
-				State = 13;
+				State = 11;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << INT) | (1L << ID) | (1L << NEWLINE))) != 0) );
+			} while ( _la==ID || _la==NL );
 			}
 		}
 		catch (RecognitionException re) {
@@ -141,56 +139,116 @@ public partial class RussianParser : Parser {
 		return _localctx;
 	}
 
-	public partial class StatementContext : ParserRuleContext {
-		public ExprContext expr() {
-			return GetRuleContext<ExprContext>(0);
-		}
-		public ITerminalNode NEWLINE() { return GetToken(RussianParser.NEWLINE, 0); }
-		public ITerminalNode ID() { return GetToken(RussianParser.ID, 0); }
-		public ITerminalNode ASSIGN() { return GetToken(RussianParser.ASSIGN, 0); }
-		public StatementContext(ParserRuleContext parent, int invokingState)
+	public partial class StatContext : ParserRuleContext {
+		public StatContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_statement; } }
+		public override int RuleIndex { get { return RULE_stat; } }
+	 
+		public StatContext() { }
+		public virtual void CopyFrom(StatContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class BlankContext : StatContext {
+		public ITerminalNode NL() { return GetToken(RussianParser.NL, 0); }
+		public BlankContext(StatContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.EnterStatement(this);
+			if (typedListener != null) typedListener.EnterBlank(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.ExitStatement(this);
+			if (typedListener != null) typedListener.ExitBlank(this);
+		}
+	}
+	public partial class FuncContext : StatContext {
+		public IToken parm;
+		public ITerminalNode[] ID() { return GetTokens(RussianParser.ID); }
+		public ITerminalNode ID(int i) {
+			return GetToken(RussianParser.ID, i);
+		}
+		public ITerminalNode ASSIGN() { return GetToken(RussianParser.ASSIGN, 0); }
+		public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
+		}
+		public ITerminalNode NL() { return GetToken(RussianParser.NL, 0); }
+		public ITerminalNode NUM() { return GetToken(RussianParser.NUM, 0); }
+		public FuncContext(StatContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterFunc(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitFunc(this);
+		}
+	}
+	public partial class AssignContext : StatContext {
+		public ITerminalNode ID() { return GetToken(RussianParser.ID, 0); }
+		public ITerminalNode ASSIGN() { return GetToken(RussianParser.ASSIGN, 0); }
+		public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
+		}
+		public ITerminalNode NL() { return GetToken(RussianParser.NL, 0); }
+		public AssignContext(StatContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterAssign(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitAssign(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public StatementContext statement() {
-		StatementContext _localctx = new StatementContext(Context, State);
-		EnterRule(_localctx, 2, RULE_statement);
+	public StatContext stat() {
+		StatContext _localctx = new StatContext(Context, State);
+		EnterRule(_localctx, 2, RULE_stat);
+		int _la;
 		try {
-			State = 24;
+			State = 27;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,1,Context) ) {
 			case 1:
+				_localctx = new AssignContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 15; expr();
-				State = 16; Match(NEWLINE);
+				State = 13; Match(ID);
+				State = 14; Match(ASSIGN);
+				State = 15; expr(0);
+				State = 16; Match(NL);
 				}
 				break;
 			case 2:
+				_localctx = new FuncContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 18; Match(ID);
-				State = 19; Match(ASSIGN);
-				State = 20; expr();
-				State = 21; Match(NEWLINE);
+				State = 19; Match(T__0);
+				State = 20;
+				((FuncContext)_localctx).parm = TokenStream.LT(1);
+				_la = TokenStream.LA(1);
+				if ( !(_la==ID || _la==NUM) ) {
+					((FuncContext)_localctx).parm = ErrorHandler.RecoverInline(this);
+				}
+				else {
+					ErrorHandler.ReportMatch(this);
+				    Consume();
+				}
+				State = 21; Match(T__1);
+				State = 22; Match(ASSIGN);
+				State = 23; expr(0);
+				State = 24; Match(NL);
 				}
 				break;
 			case 3:
+				_localctx = new BlankContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 23; Match(NEWLINE);
+				State = 26; Match(NL);
 				}
 				break;
 			}
@@ -207,71 +265,221 @@ public partial class RussianParser : Parser {
 	}
 
 	public partial class ExprContext : ParserRuleContext {
-		public MultExpressionContext[] multExpression() {
-			return GetRuleContexts<MultExpressionContext>();
-		}
-		public MultExpressionContext multExpression(int i) {
-			return GetRuleContext<MultExpressionContext>(i);
-		}
-		public ITerminalNode[] ADD() { return GetTokens(RussianParser.ADD); }
-		public ITerminalNode ADD(int i) {
-			return GetToken(RussianParser.ADD, i);
-		}
-		public ITerminalNode[] SUB() { return GetTokens(RussianParser.SUB); }
-		public ITerminalNode SUB(int i) {
-			return GetToken(RussianParser.SUB, i);
-		}
 		public ExprContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_expr; } }
+	 
+		public ExprContext() { }
+		public virtual void CopyFrom(ExprContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class CallContext : ExprContext {
+		public ITerminalNode ID() { return GetToken(RussianParser.ID, 0); }
+		public ExprContext expr() {
+			return GetRuleContext<ExprContext>(0);
+		}
+		public CallContext(ExprContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.EnterExpr(this);
+			if (typedListener != null) typedListener.EnterCall(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.ExitExpr(this);
+			if (typedListener != null) typedListener.ExitCall(this);
+		}
+	}
+	public partial class ModMulDivContext : ExprContext {
+		public IToken op;
+		public ExprContext[] expr() {
+			return GetRuleContexts<ExprContext>();
+		}
+		public ExprContext expr(int i) {
+			return GetRuleContext<ExprContext>(i);
+		}
+		public ITerminalNode MOD() { return GetToken(RussianParser.MOD, 0); }
+		public ITerminalNode MUL() { return GetToken(RussianParser.MUL, 0); }
+		public ITerminalNode DIV() { return GetToken(RussianParser.DIV, 0); }
+		public ModMulDivContext(ExprContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterModMulDiv(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitModMulDiv(this);
+		}
+	}
+	public partial class PrimContext : ExprContext {
+		public PrimaryContext primary() {
+			return GetRuleContext<PrimaryContext>(0);
+		}
+		public PrimContext(ExprContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterPrim(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitPrim(this);
+		}
+	}
+	public partial class AddSubContext : ExprContext {
+		public IToken op;
+		public ExprContext[] expr() {
+			return GetRuleContexts<ExprContext>();
+		}
+		public ExprContext expr(int i) {
+			return GetRuleContext<ExprContext>(i);
+		}
+		public ITerminalNode ADD() { return GetToken(RussianParser.ADD, 0); }
+		public ITerminalNode SUB() { return GetToken(RussianParser.SUB, 0); }
+		public AddSubContext(ExprContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterAddSub(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitAddSub(this);
+		}
+	}
+	public partial class UnaryContext : ExprContext {
+		public IToken sign;
+		public PrimaryContext primary() {
+			return GetRuleContext<PrimaryContext>(0);
+		}
+		public ITerminalNode ADD() { return GetToken(RussianParser.ADD, 0); }
+		public ITerminalNode SUB() { return GetToken(RussianParser.SUB, 0); }
+		public UnaryContext(ExprContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterUnary(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitUnary(this);
 		}
 	}
 
 	[RuleVersion(0)]
 	public ExprContext expr() {
-		ExprContext _localctx = new ExprContext(Context, State);
-		EnterRule(_localctx, 4, RULE_expr);
+		return expr(0);
+	}
+
+	private ExprContext expr(int _p) {
+		ParserRuleContext _parentctx = Context;
+		int _parentState = State;
+		ExprContext _localctx = new ExprContext(Context, _parentState);
+		ExprContext _prevctx = _localctx;
+		int _startState = 4;
+		EnterRecursionRule(_localctx, 4, RULE_expr, _p);
 		int _la;
 		try {
+			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 26; multExpression();
-			State = 33;
+			State = 38;
 			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			while (_la==ADD || _la==SUB) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
+			case 1:
 				{
-				State = 31;
-				ErrorHandler.Sync(this);
-				switch (TokenStream.LA(1)) {
-				case ADD:
-					{
-					State = 27; Match(ADD);
-					State = 28; multExpression();
-					}
-					break;
-				case SUB:
-					{
-					State = 29; Match(SUB);
-					State = 30; multExpression();
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				_localctx = new CallContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
+
+				State = 30; Match(ID);
+				State = 31; Match(T__0);
+				State = 32; expr(0);
+				State = 33; Match(T__1);
 				}
-				}
+				break;
+			case 2:
+				{
+				_localctx = new UnaryContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
 				State = 35;
-				ErrorHandler.Sync(this);
+				((UnaryContext)_localctx).sign = TokenStream.LT(1);
 				_la = TokenStream.LA(1);
+				if ( !(_la==ADD || _la==SUB) ) {
+					((UnaryContext)_localctx).sign = ErrorHandler.RecoverInline(this);
+				}
+				else {
+					ErrorHandler.ReportMatch(this);
+				    Consume();
+				}
+				State = 36; primary();
+				}
+				break;
+			case 3:
+				{
+				_localctx = new PrimContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
+				State = 37; primary();
+				}
+				break;
+			}
+			Context.Stop = TokenStream.LT(-1);
+			State = 48;
+			ErrorHandler.Sync(this);
+			_alt = Interpreter.AdaptivePredict(TokenStream,4,Context);
+			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					if ( ParseListeners!=null )
+						TriggerExitRuleEvent();
+					_prevctx = _localctx;
+					{
+					State = 46;
+					ErrorHandler.Sync(this);
+					switch ( Interpreter.AdaptivePredict(TokenStream,3,Context) ) {
+					case 1:
+						{
+						_localctx = new ModMulDivContext(new ExprContext(_parentctx, _parentState));
+						PushNewRecursionContext(_localctx, _startState, RULE_expr);
+						State = 40;
+						if (!(Precpred(Context, 5))) throw new FailedPredicateException(this, "Precpred(Context, 5)");
+						State = 41;
+						((ModMulDivContext)_localctx).op = TokenStream.LT(1);
+						_la = TokenStream.LA(1);
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MOD) | (1L << MUL) | (1L << DIV))) != 0)) ) {
+							((ModMulDivContext)_localctx).op = ErrorHandler.RecoverInline(this);
+						}
+						else {
+							ErrorHandler.ReportMatch(this);
+						    Consume();
+						}
+						State = 42; expr(6);
+						}
+						break;
+					case 2:
+						{
+						_localctx = new AddSubContext(new ExprContext(_parentctx, _parentState));
+						PushNewRecursionContext(_localctx, _startState, RULE_expr);
+						State = 43;
+						if (!(Precpred(Context, 4))) throw new FailedPredicateException(this, "Precpred(Context, 4)");
+						State = 44;
+						((AddSubContext)_localctx).op = TokenStream.LT(1);
+						_la = TokenStream.LA(1);
+						if ( !(_la==ADD || _la==SUB) ) {
+							((AddSubContext)_localctx).op = ErrorHandler.RecoverInline(this);
+						}
+						else {
+							ErrorHandler.ReportMatch(this);
+						    Consume();
+						}
+						State = 45; expr(5);
+						}
+						break;
+					}
+					} 
+				}
+				State = 50;
+				ErrorHandler.Sync(this);
+				_alt = Interpreter.AdaptivePredict(TokenStream,4,Context);
 			}
 			}
 		}
@@ -281,140 +489,91 @@ public partial class RussianParser : Parser {
 			ErrorHandler.Recover(this, re);
 		}
 		finally {
-			ExitRule();
+			UnrollRecursionContexts(_parentctx);
 		}
 		return _localctx;
 	}
 
-	public partial class MultExpressionContext : ParserRuleContext {
-		public AtomContext a1;
-		public AtomContext a2;
-		public AtomContext[] atom() {
-			return GetRuleContexts<AtomContext>();
-		}
-		public AtomContext atom(int i) {
-			return GetRuleContext<AtomContext>(i);
-		}
-		public ITerminalNode[] MUL() { return GetTokens(RussianParser.MUL); }
-		public ITerminalNode MUL(int i) {
-			return GetToken(RussianParser.MUL, i);
-		}
-		public ITerminalNode[] DIV() { return GetTokens(RussianParser.DIV); }
-		public ITerminalNode DIV(int i) {
-			return GetToken(RussianParser.DIV, i);
-		}
-		public MultExpressionContext(ParserRuleContext parent, int invokingState)
+	public partial class PrimaryContext : ParserRuleContext {
+		public PrimaryContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_multExpression; } }
-		public override void EnterRule(IParseTreeListener listener) {
-			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.EnterMultExpression(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.ExitMultExpression(this);
+		public override int RuleIndex { get { return RULE_primary; } }
+	 
+		public PrimaryContext() { }
+		public virtual void CopyFrom(PrimaryContext context) {
+			base.CopyFrom(context);
 		}
 	}
-
-	[RuleVersion(0)]
-	public MultExpressionContext multExpression() {
-		MultExpressionContext _localctx = new MultExpressionContext(Context, State);
-		EnterRule(_localctx, 6, RULE_multExpression);
-		int _la;
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 36; _localctx.a1 = atom();
-			State = 43;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			while (_la==MUL || _la==DIV) {
-				{
-				State = 41;
-				ErrorHandler.Sync(this);
-				switch (TokenStream.LA(1)) {
-				case MUL:
-					{
-					State = 37; Match(MUL);
-					State = 38; _localctx.a2 = atom();
-					}
-					break;
-				case DIV:
-					{
-					State = 39; Match(DIV);
-					State = 40; _localctx.a2 = atom();
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
-				}
-				}
-				State = 45;
-				ErrorHandler.Sync(this);
-				_la = TokenStream.LA(1);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class AtomContext : ParserRuleContext {
-		public ITerminalNode ID() { return GetToken(RussianParser.ID, 0); }
-		public ITerminalNode INT() { return GetToken(RussianParser.INT, 0); }
+	public partial class ParensContext : PrimaryContext {
 		public ExprContext expr() {
 			return GetRuleContext<ExprContext>(0);
 		}
-		public AtomContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_atom; } }
+		public ParensContext(PrimaryContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.EnterAtom(this);
+			if (typedListener != null) typedListener.EnterParens(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IRussianListener typedListener = listener as IRussianListener;
-			if (typedListener != null) typedListener.ExitAtom(this);
+			if (typedListener != null) typedListener.ExitParens(this);
+		}
+	}
+	public partial class NumContext : PrimaryContext {
+		public ITerminalNode NUM() { return GetToken(RussianParser.NUM, 0); }
+		public NumContext(PrimaryContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterNum(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitNum(this);
+		}
+	}
+	public partial class IdContext : PrimaryContext {
+		public ITerminalNode ID() { return GetToken(RussianParser.ID, 0); }
+		public IdContext(PrimaryContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.EnterId(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IRussianListener typedListener = listener as IRussianListener;
+			if (typedListener != null) typedListener.ExitId(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public AtomContext atom() {
-		AtomContext _localctx = new AtomContext(Context, State);
-		EnterRule(_localctx, 8, RULE_atom);
+	public PrimaryContext primary() {
+		PrimaryContext _localctx = new PrimaryContext(Context, State);
+		EnterRule(_localctx, 6, RULE_primary);
 		try {
-			State = 52;
+			State = 57;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
-			case ID:
+			case NUM:
+				_localctx = new NumContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 46; Match(ID);
+				State = 51; Match(NUM);
 				}
 				break;
-			case INT:
+			case ID:
+				_localctx = new IdContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 47; Match(INT);
+				State = 52; Match(ID);
 				}
 				break;
 			case T__0:
+				_localctx = new ParensContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 48; Match(T__0);
-				State = 49; expr();
-				State = 50; Match(T__1);
+				State = 53; Match(T__0);
+				State = 54; expr(0);
+				State = 55; Match(T__1);
 				}
 				break;
 			default:
@@ -432,54 +591,74 @@ public partial class RussianParser : Parser {
 		return _localctx;
 	}
 
+	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
+		switch (ruleIndex) {
+		case 2: return expr_sempred((ExprContext)_localctx, predIndex);
+		}
+		return true;
+	}
+	private bool expr_sempred(ExprContext _localctx, int predIndex) {
+		switch (predIndex) {
+		case 0: return Precpred(Context, 5);
+		case 1: return Precpred(Context, 4);
+		}
+		return true;
+	}
+
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\f', '\x39', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
-		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
-		'\x6', '\t', '\x6', '\x3', '\x2', '\x6', '\x2', '\xE', '\n', '\x2', '\r', 
-		'\x2', '\xE', '\x2', '\xF', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', 
+		'\x5964', '\x3', '\x10', '>', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x3', 
+		'\x2', '\x6', '\x2', '\f', '\n', '\x2', '\r', '\x2', '\xE', '\x2', '\r', 
 		'\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', 
-		'\x3', '\x3', '\x5', '\x3', '\x1B', '\n', '\x3', '\x3', '\x4', '\x3', 
-		'\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\a', '\x4', '\"', '\n', 
-		'\x4', '\f', '\x4', '\xE', '\x4', '%', '\v', '\x4', '\x3', '\x5', '\x3', 
-		'\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\a', '\x5', ',', '\n', 
-		'\x5', '\f', '\x5', '\xE', '\x5', '/', '\v', '\x5', '\x3', '\x6', '\x3', 
-		'\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x5', 
-		'\x6', '\x37', '\n', '\x6', '\x3', '\x6', '\x2', '\x2', '\a', '\x2', '\x4', 
-		'\x6', '\b', '\n', '\x2', '\x2', '\x2', '<', '\x2', '\r', '\x3', '\x2', 
-		'\x2', '\x2', '\x4', '\x1A', '\x3', '\x2', '\x2', '\x2', '\x6', '\x1C', 
-		'\x3', '\x2', '\x2', '\x2', '\b', '&', '\x3', '\x2', '\x2', '\x2', '\n', 
-		'\x36', '\x3', '\x2', '\x2', '\x2', '\f', '\xE', '\x5', '\x4', '\x3', 
-		'\x2', '\r', '\f', '\x3', '\x2', '\x2', '\x2', '\xE', '\xF', '\x3', '\x2', 
-		'\x2', '\x2', '\xF', '\r', '\x3', '\x2', '\x2', '\x2', '\xF', '\x10', 
-		'\x3', '\x2', '\x2', '\x2', '\x10', '\x3', '\x3', '\x2', '\x2', '\x2', 
-		'\x11', '\x12', '\x5', '\x6', '\x4', '\x2', '\x12', '\x13', '\a', '\f', 
-		'\x2', '\x2', '\x13', '\x1B', '\x3', '\x2', '\x2', '\x2', '\x14', '\x15', 
-		'\a', '\x6', '\x2', '\x2', '\x15', '\x16', '\a', '\v', '\x2', '\x2', '\x16', 
-		'\x17', '\x5', '\x6', '\x4', '\x2', '\x17', '\x18', '\a', '\f', '\x2', 
-		'\x2', '\x18', '\x1B', '\x3', '\x2', '\x2', '\x2', '\x19', '\x1B', '\a', 
-		'\f', '\x2', '\x2', '\x1A', '\x11', '\x3', '\x2', '\x2', '\x2', '\x1A', 
-		'\x14', '\x3', '\x2', '\x2', '\x2', '\x1A', '\x19', '\x3', '\x2', '\x2', 
-		'\x2', '\x1B', '\x5', '\x3', '\x2', '\x2', '\x2', '\x1C', '#', '\x5', 
-		'\b', '\x5', '\x2', '\x1D', '\x1E', '\a', '\a', '\x2', '\x2', '\x1E', 
-		'\"', '\x5', '\b', '\x5', '\x2', '\x1F', ' ', '\a', '\b', '\x2', '\x2', 
-		' ', '\"', '\x5', '\b', '\x5', '\x2', '!', '\x1D', '\x3', '\x2', '\x2', 
-		'\x2', '!', '\x1F', '\x3', '\x2', '\x2', '\x2', '\"', '%', '\x3', '\x2', 
-		'\x2', '\x2', '#', '!', '\x3', '\x2', '\x2', '\x2', '#', '$', '\x3', '\x2', 
-		'\x2', '\x2', '$', '\a', '\x3', '\x2', '\x2', '\x2', '%', '#', '\x3', 
-		'\x2', '\x2', '\x2', '&', '-', '\x5', '\n', '\x6', '\x2', '\'', '(', '\a', 
-		'\t', '\x2', '\x2', '(', ',', '\x5', '\n', '\x6', '\x2', ')', '*', '\a', 
-		'\n', '\x2', '\x2', '*', ',', '\x5', '\n', '\x6', '\x2', '+', '\'', '\x3', 
-		'\x2', '\x2', '\x2', '+', ')', '\x3', '\x2', '\x2', '\x2', ',', '/', '\x3', 
-		'\x2', '\x2', '\x2', '-', '+', '\x3', '\x2', '\x2', '\x2', '-', '.', '\x3', 
-		'\x2', '\x2', '\x2', '.', '\t', '\x3', '\x2', '\x2', '\x2', '/', '-', 
-		'\x3', '\x2', '\x2', '\x2', '\x30', '\x37', '\a', '\x6', '\x2', '\x2', 
-		'\x31', '\x37', '\a', '\x5', '\x2', '\x2', '\x32', '\x33', '\a', '\x3', 
-		'\x2', '\x2', '\x33', '\x34', '\x5', '\x6', '\x4', '\x2', '\x34', '\x35', 
-		'\a', '\x4', '\x2', '\x2', '\x35', '\x37', '\x3', '\x2', '\x2', '\x2', 
-		'\x36', '\x30', '\x3', '\x2', '\x2', '\x2', '\x36', '\x31', '\x3', '\x2', 
-		'\x2', '\x2', '\x36', '\x32', '\x3', '\x2', '\x2', '\x2', '\x37', '\v', 
-		'\x3', '\x2', '\x2', '\x2', '\t', '\xF', '\x1A', '!', '#', '+', '-', '\x36',
+		'\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', 
+		'\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x5', '\x3', 
+		'\x1E', '\n', '\x3', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', 
+		'\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', 
+		'\x4', '\x5', '\x4', ')', '\n', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', 
+		'\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\a', '\x4', '\x31', 
+		'\n', '\x4', '\f', '\x4', '\xE', '\x4', '\x34', '\v', '\x4', '\x3', '\x5', 
+		'\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', 
+		'\x5', '\x5', '<', '\n', '\x5', '\x3', '\x5', '\x2', '\x3', '\x6', '\x6', 
+		'\x2', '\x4', '\x6', '\b', '\x2', '\x5', '\x3', '\x2', '\v', '\f', '\x3', 
+		'\x2', '\b', '\t', '\x3', '\x2', '\x5', '\a', '\x2', '\x42', '\x2', '\v', 
+		'\x3', '\x2', '\x2', '\x2', '\x4', '\x1D', '\x3', '\x2', '\x2', '\x2', 
+		'\x6', '(', '\x3', '\x2', '\x2', '\x2', '\b', ';', '\x3', '\x2', '\x2', 
+		'\x2', '\n', '\f', '\x5', '\x4', '\x3', '\x2', '\v', '\n', '\x3', '\x2', 
+		'\x2', '\x2', '\f', '\r', '\x3', '\x2', '\x2', '\x2', '\r', '\v', '\x3', 
+		'\x2', '\x2', '\x2', '\r', '\xE', '\x3', '\x2', '\x2', '\x2', '\xE', '\x3', 
+		'\x3', '\x2', '\x2', '\x2', '\xF', '\x10', '\a', '\v', '\x2', '\x2', '\x10', 
+		'\x11', '\a', '\n', '\x2', '\x2', '\x11', '\x12', '\x5', '\x6', '\x4', 
+		'\x2', '\x12', '\x13', '\a', '\xF', '\x2', '\x2', '\x13', '\x1E', '\x3', 
+		'\x2', '\x2', '\x2', '\x14', '\x15', '\a', '\v', '\x2', '\x2', '\x15', 
+		'\x16', '\a', '\x3', '\x2', '\x2', '\x16', '\x17', '\t', '\x2', '\x2', 
+		'\x2', '\x17', '\x18', '\a', '\x4', '\x2', '\x2', '\x18', '\x19', '\a', 
+		'\n', '\x2', '\x2', '\x19', '\x1A', '\x5', '\x6', '\x4', '\x2', '\x1A', 
+		'\x1B', '\a', '\xF', '\x2', '\x2', '\x1B', '\x1E', '\x3', '\x2', '\x2', 
+		'\x2', '\x1C', '\x1E', '\a', '\xF', '\x2', '\x2', '\x1D', '\xF', '\x3', 
+		'\x2', '\x2', '\x2', '\x1D', '\x14', '\x3', '\x2', '\x2', '\x2', '\x1D', 
+		'\x1C', '\x3', '\x2', '\x2', '\x2', '\x1E', '\x5', '\x3', '\x2', '\x2', 
+		'\x2', '\x1F', ' ', '\b', '\x4', '\x1', '\x2', ' ', '!', '\a', '\v', '\x2', 
+		'\x2', '!', '\"', '\a', '\x3', '\x2', '\x2', '\"', '#', '\x5', '\x6', 
+		'\x4', '\x2', '#', '$', '\a', '\x4', '\x2', '\x2', '$', ')', '\x3', '\x2', 
+		'\x2', '\x2', '%', '&', '\t', '\x3', '\x2', '\x2', '&', ')', '\x5', '\b', 
+		'\x5', '\x2', '\'', ')', '\x5', '\b', '\x5', '\x2', '(', '\x1F', '\x3', 
+		'\x2', '\x2', '\x2', '(', '%', '\x3', '\x2', '\x2', '\x2', '(', '\'', 
+		'\x3', '\x2', '\x2', '\x2', ')', '\x32', '\x3', '\x2', '\x2', '\x2', '*', 
+		'+', '\f', '\a', '\x2', '\x2', '+', ',', '\t', '\x4', '\x2', '\x2', ',', 
+		'\x31', '\x5', '\x6', '\x4', '\b', '-', '.', '\f', '\x6', '\x2', '\x2', 
+		'.', '/', '\t', '\x3', '\x2', '\x2', '/', '\x31', '\x5', '\x6', '\x4', 
+		'\a', '\x30', '*', '\x3', '\x2', '\x2', '\x2', '\x30', '-', '\x3', '\x2', 
+		'\x2', '\x2', '\x31', '\x34', '\x3', '\x2', '\x2', '\x2', '\x32', '\x30', 
+		'\x3', '\x2', '\x2', '\x2', '\x32', '\x33', '\x3', '\x2', '\x2', '\x2', 
+		'\x33', '\a', '\x3', '\x2', '\x2', '\x2', '\x34', '\x32', '\x3', '\x2', 
+		'\x2', '\x2', '\x35', '<', '\a', '\f', '\x2', '\x2', '\x36', '<', '\a', 
+		'\v', '\x2', '\x2', '\x37', '\x38', '\a', '\x3', '\x2', '\x2', '\x38', 
+		'\x39', '\x5', '\x6', '\x4', '\x2', '\x39', ':', '\a', '\x4', '\x2', '\x2', 
+		':', '<', '\x3', '\x2', '\x2', '\x2', ';', '\x35', '\x3', '\x2', '\x2', 
+		'\x2', ';', '\x36', '\x3', '\x2', '\x2', '\x2', ';', '\x37', '\x3', '\x2', 
+		'\x2', '\x2', '<', '\t', '\x3', '\x2', '\x2', '\x2', '\b', '\r', '\x1D', 
+		'(', '\x30', '\x32', ';',
 	};
 
 	public static readonly ATN _ATN =

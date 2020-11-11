@@ -1,37 +1,57 @@
 Parse Tree:
 start (
- statement (
-  " "
- )
- statement (
-  " "
- )
- statement (
-  expr (
-   multExpression (
-    atom (
-     "2"
-    )
-   )
-  )
-  " "
- )
- statement (
-  " "
- )
- statement (
-  expr (
-   multExpression (
-    atom (
-     "1"
-    )
-   )
-  )
-  "
+statement (
+expr (
+multExpression (
+atom (
+"а"
+)
+)
+)
+" "
+)
+statement (
+expr (
+multExpression (
+atom (
+"равно"
+)
+)
+)
+" "
+)
+statement (
+expr (
+multExpression (
+atom (
+"2"
+)
+)
+)
+" "
+)
+statement (
+expr (
+multExpression (
+atom (
+"минус"
+)
+)
+)
+" "
+)
+statement (
+expr (
+multExpression (
+atom (
+"1"
+)
+)
+)
+" "
+)
+statement (
 "
- )
- statement (
-  "
 "
- )
+)
 )
