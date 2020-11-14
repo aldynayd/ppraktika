@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 grammar Russian;
 options
 {
@@ -13,19 +7,18 @@ options
 @parser::namespace { Russian }
 @lexer::namespace  { Russian }
 
-
 prog
     : stat+
     ;
 stat:
-    stat1 op=ASSIGN stat1 # assign;
+    stat1* op=ASSIGN? stat1* NL             # assign;
 stat1
     : expr                               # printExpr
     ;
 
 expr
     : 
-     expr op=(MUL|DIV) expr             # MulDiv
+     expr op=(MOD|MUL|DIV) expr         # ModMulDiv
     | expr op=(ADD|SUB) expr            # AddSub
     | ID '(' expr ')'                   # call
     | sign=('+'|'-') primary            # unary
@@ -38,11 +31,17 @@ primary
     | '(' expr ')'                      # parens
     ;
 
-ADD: 'плюс' ;
-SUB: 'минус' ;
-MUL: 'умножить на' ;
-DIV: 'разделить на' ;
-ASSIGN: 'равно' ;
+MOD : '%' ;
+
+MUL : '\u0443\u043c\u043d\u043e\u0436\u0438\u0442\u044c' ;
+
+DIV : '\u0440\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u044c' ;
+
+ADD : '\u043f\u043b\u044e\u0441' ;
+
+SUB : '\u043c\u0438\u043d\u0443\u0441' ;
+
+ASSIGN : '\u0440\u0430\u0432\u043d\u043e';
 
 ID  : Letter (Letter|Digit)* ;
 
@@ -58,11 +57,11 @@ FLT : Digit+ '.' Digit*
 
 NL  : '\r'? '\n' ;        // return newline to parser (is end-statement signal)
 
-WS  : [ \t]+ -> skip ;    // toss out whitespace
+WS  : (' ' | '\t')+ -> skip ;    // toss out whitespace
 
 fragment
 Letter
-    : [\u0400-\u04FF]
+    : '\u0400'..'\u04FF'
     ;
 
 fragment
