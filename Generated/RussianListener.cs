@@ -53,29 +53,17 @@ public interface IRussianListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitAssign([NotNull] RussianParser.AssignContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>func</c>
-	/// labeled alternative in <see cref="RussianParser.stat"/>.
+	/// Enter a parse tree produced by the <c>printExpr</c>
+	/// labeled alternative in <see cref="RussianParser.stat1"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterFunc([NotNull] RussianParser.FuncContext context);
+	void EnterPrintExpr([NotNull] RussianParser.PrintExprContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>func</c>
-	/// labeled alternative in <see cref="RussianParser.stat"/>.
+	/// Exit a parse tree produced by the <c>printExpr</c>
+	/// labeled alternative in <see cref="RussianParser.stat1"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitFunc([NotNull] RussianParser.FuncContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>blank</c>
-	/// labeled alternative in <see cref="RussianParser.stat"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterBlank([NotNull] RussianParser.BlankContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>blank</c>
-	/// labeled alternative in <see cref="RussianParser.stat"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitBlank([NotNull] RussianParser.BlankContext context);
+	void ExitPrintExpr([NotNull] RussianParser.PrintExprContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>call</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -89,18 +77,6 @@ public interface IRussianListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitCall([NotNull] RussianParser.CallContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>ModMulDiv</c>
-	/// labeled alternative in <see cref="RussianParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterModMulDiv([NotNull] RussianParser.ModMulDivContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>ModMulDiv</c>
-	/// labeled alternative in <see cref="RussianParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitModMulDiv([NotNull] RussianParser.ModMulDivContext context);
-	/// <summary>
 	/// Enter a parse tree produced by the <c>prim</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
@@ -113,17 +89,29 @@ public interface IRussianListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitPrim([NotNull] RussianParser.PrimContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>AddSub</c>
+	/// Enter a parse tree produced by the <c>SinCosTanLnSqrt</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAddSub([NotNull] RussianParser.AddSubContext context);
+	void EnterSinCosTanLnSqrt([NotNull] RussianParser.SinCosTanLnSqrtContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>AddSub</c>
+	/// Exit a parse tree produced by the <c>SinCosTanLnSqrt</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAddSub([NotNull] RussianParser.AddSubContext context);
+	void ExitSinCosTanLnSqrt([NotNull] RussianParser.SinCosTanLnSqrtContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ModMulDivGtLt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterModMulDivGtLt([NotNull] RussianParser.ModMulDivGtLtContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ModMulDivGtLt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitModMulDivGtLt([NotNull] RussianParser.ModMulDivGtLtContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>unary</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -136,6 +124,18 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitUnary([NotNull] RussianParser.UnaryContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>AddSubPow</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAddSubPow([NotNull] RussianParser.AddSubPowContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>AddSubPow</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAddSubPow([NotNull] RussianParser.AddSubPowContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>num</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
