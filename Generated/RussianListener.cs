@@ -40,6 +40,11 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitProg([NotNull] RussianParser.ProgContext context);
+	
+
+		Stack MyStack = new MyStack();
+
+	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>assign</c>
 	/// labeled alternative in <see cref="RussianParser.stat"/>.
@@ -52,6 +57,41 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitAssign([NotNull] RussianParser.AssignContext context);
+
+			# Parser
+			ExprNode parse(string input){
+    			char c;
+				while (c = input.getNextChar()) {
+					if ( c = ASSIGN ) MyStack.push(c); }
+
+            	while(operatorStack.top().precedence >= c.precedence)
+            	    operator = operatorStack.pop();
+            	    # Careful! The second operand was pushed last.
+            	    e2 = exprStack.pop();
+            	    e1 = exprStack.pop();
+            	    exprStack.push(ExprNode(operator, e1, e2));
+
+            		operatorStack.push(c);
+
+        		else if (c == ')'){
+            		while (operatorStack.top() != '('):
+            	    operator = operatorStack.pop()
+            	    # Careful! The second operand was pushed last.
+            	    e2 = exprStack.pop()
+            	    e1 = exprStack.pop()
+           		    exprStack.push(ExprNode(operator, e1, e2))
+				}
+            # Pop the '(' off the operator stack.
+            operatorStack.pop()
+
+        else:
+            error()
+            return 0;
+
+    # There should only be one item on exprStack.
+    # It's the root node, so we return it.
+    return exprStack.pop()
+	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>printExpr</c>
 	/// labeled alternative in <see cref="RussianParser.stat1"/>.
@@ -64,6 +104,41 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPrintExpr([NotNull] RussianParser.PrintExprContext context);
+			# Parser
+			ExprNode parse(string input){
+    			char c;
+				while (c = input.getNextChar()) {
+					if ( c = EXPR ) MyStack.push(c); }
+
+            	while(operatorStack.top().precedence >= c.precedence)
+            	    operator = operatorStack.pop();
+            	    # Careful! The second operand was pushed last.
+            	    e2 = exprStack.pop();
+            	    e1 = exprStack.pop();
+            	    exprStack.push(ExprNode(operator, e1, e2));
+
+            		operatorStack.push(c);
+
+        		else if (c == ')'){
+            		while (operatorStack.top() != '('):
+            	    operator = operatorStack.pop()
+            	    # Careful! The second operand was pushed last.
+            	    e2 = exprStack.pop()
+            	    e1 = exprStack.pop()
+           		    exprStack.push(ExprNode(operator, e1, e2))
+				}
+            # Pop the '(' off the operator stack.
+            operatorStack.pop()
+
+        else:
+            error()
+            return 0;
+
+    # There should only be one item on exprStack.
+    # It's the root node, so we return it.
+    return exprStack.pop()
+	
+
 	/// <summary>
 	/// Enter a parse tree produced by the <c>call</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -76,6 +151,41 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCall([NotNull] RussianParser.CallContext context);
+# Parser
+			ExprNode parse(string input){
+    			char c;
+				while (c = input.getNextChar()) {
+					if ( c = ASSIGN ) MyStack.push(c); }
+
+            	while(operatorStack.top().precedence >= c.precedence)
+            	    operator = operatorStack.pop();
+            	    # Careful! The second operand was pushed last.
+            	    e2 = exprStack.pop();
+            	    e1 = exprStack.pop();
+            	    exprStack.push(ExprNode(operator, e1, e2));
+
+            		operatorStack.push(c);
+
+        		else if (c == ')'){
+            		while (operatorStack.top() != '('):
+            	    operator = operatorStack.pop()
+            	    # Careful! The second operand was pushed last.
+            	    e2 = exprStack.pop()
+            	    e1 = exprStack.pop()
+           		    exprStack.push(ExprNode(operator, e1, e2))
+				}
+            # Pop the '(' off the operator stack.
+            operatorStack.pop()
+
+        else:
+            error()
+            return 0;
+
+    # There should only be one item on exprStack.
+    # It's the root node, so we return it.
+    return exprStack.pop()
+	
+
 	/// <summary>
 	/// Enter a parse tree produced by the <c>prim</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -100,6 +210,20 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitSinCosTanLnSqrt([NotNull] RussianParser.SinCosTanLnSqrtContext context);
+			# Parser
+			ExprNode parse(string input){
+    			char mod;
+				while (mod = input.getNextChar()) {
+					if ( mod = ModMulDivGtLt) MyStack.push(mod); }
+            	
+            	while(MyStack.top().precedence >= mod.precedence)
+            	    operator = MyStack.pop();
+            	    # Careful! The second operand was pushed last.
+            	    e2 = MyStack.pop();
+            	    e1 = MyStack.pop();
+            	    MyStack.push(ExprNode(operator, e1, e2));
+	            return 0;
+
 	/// <summary>
 	/// Enter a parse tree produced by the <c>ModMulDivGtLt</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -112,6 +236,24 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitModMulDivGtLt([NotNull] RussianParser.ModMulDivGtLtContext context);
+			# Parser
+			ExprNode parse(string input){
+    			char mod;
+				while (mod = input.getNextChar()) {
+					if ( mod = ModMulDivGtLt) MyStack.push(mod); }
+            	
+            	while(MyStack.top().precedence >= mod.precedence)
+            	    operator = MyStack.pop();
+            	    # Careful! The second operand was pushed last.
+            	    e2 = MyStack.pop();
+            	    e1 = MyStack.pop();
+            	    MyStack.push(ExprNode(operator, e1, e2));
+	            return 0;
+
+    # There should only be one item on exprStack.
+    # It's the root node, so we return it.
+    return MyStack.pop()
+	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>unary</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -124,6 +266,24 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitUnary([NotNull] RussianParser.UnaryContext context);
+			# Parser
+			ExprNode parse(string input){
+    			char un;
+				while (un = input.getNextChar()) {
+					if ( un = UNARY ) MyStack.push(un); }
+            	
+            	while(MyStack.top().precedence >= un.precedence)
+            	    operator = MyStack.pop();
+            	    # Careful! The second operand was pushed last.
+            	    e2 = MyStack.pop();
+            	    e1 = MyStack.pop();
+            	    MyStack.push(ExprNode(operator, e1, e2));
+	            return 0;
+
+    # There should only be one item on exprStack.
+    # It's the root node, so we return it.
+    return MyStack.pop()
+	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>AddSubPow</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -136,6 +296,24 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitAddSubPow([NotNull] RussianParser.AddSubPowContext context);
+		# Parser
+			ExprNode parse(string input){
+    			char op;
+				while (op = input.getNextChar()) {
+					if ( op = AddSubPow ) MyStack.push(op); }
+
+            	while(MyStack.top().precedence >= op.precedence)
+            	    operator = MyStack.pop();
+            	    # Careful! The second operand was pushed last.
+            	    e2 = MyStack.pop();
+            	    e1 = MyStack.pop();
+            	    MyStack.push(ExprNode(operator, e1, e2));
+				return 0;
+
+    # There should only be one item on exprStack.
+    # It's the root node, so we return it.
+    	return MyStack.pop();
+	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>num</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
@@ -148,6 +326,14 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitNum([NotNull] RussianParser.NumContext context);
+	# Parser
+			ExprNode parse(string input){
+    			char b;
+				while (b = input.getNextChar()) {
+					if ( b = NUM ) MyStack.push(b); }
+	            return 0;
+		    	return MyStack.pop();
+
 	/// <summary>
 	/// Enter a parse tree produced by the <c>id</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
@@ -160,6 +346,17 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitId([NotNull] RussianParser.IdContext context);
+			# Parser
+			ExprNode parse(string input){
+    			char c;
+				while (c = input.getNextChar()) {
+					if ( c = ID ) MyStack.push(c); }
+	            return 0;
+
+    # There should only be one item on exprStack.
+    # It's the root node, so we return it.
+    	return MyStack.pop();
+	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>parens</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
