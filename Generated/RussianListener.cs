@@ -23,6 +23,8 @@ using Antlr4.Runtime.Misc;
 using IParseTreeListener = Antlr4.Runtime.Tree.IParseTreeListener;
 using IToken = Antlr4.Runtime.IToken;
 
+		Stack MyStack = new MyStack();
+
 /// <summary>
 /// This interface defines a complete listener for a parse tree produced by
 /// <see cref="RussianParser"/>.
@@ -40,11 +42,6 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitProg([NotNull] RussianParser.ProgContext context);
-	
-
-		Stack MyStack = new MyStack();
-
-	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>assign</c>
 	/// labeled alternative in <see cref="RussianParser.stat"/>.
@@ -197,7 +194,8 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitPrim([NotNull] RussianParser.PrimContext context);
+	void ExitPrim([NotNull] RussianParser.PrimContext context)
+
 	/// <summary>
 	/// Enter a parse tree produced by the <c>SinCosTanLnSqrt</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -209,21 +207,62 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitSinCosTanLnSqrt([NotNull] RussianParser.SinCosTanLnSqrtContext context);
-			# Parser
-			ExprNode parse(string input){
-    			char mod;
-				while (mod = input.getNextChar()) {
-					if ( mod = ModMulDivGtLt) MyStack.push(mod); }
-            	
-            	while(MyStack.top().precedence >= mod.precedence)
-            	    operator = MyStack.pop();
-            	    # Careful! The second operand was pushed last.
-            	    e2 = MyStack.pop();
-            	    e1 = MyStack.pop();
-            	    MyStack.push(ExprNode(operator, e1, e2));
-	            return 0;
-
+	void ExitSinCosTanLnSqrt([NotNull] RussianParser.SinCosTanLnSqrtContext context)
+		{
+		object s;
+		object a;
+		object b;
+		object c;
+        public override double VisitCompileUnit(RussianParser.CompileUnitContext context)
+        {
+            return Listen(context.expression(0));
+        }
+        public override double VisitExpression(RussianrParser.ExpressionContext context)
+        {
+            s = context.expression(0);
+        }
+		if ( s == '\u0441\u0438\u043d\u0443\u0441' ) // 'синус'
+		{
+			b = " \ sin ( ";
+			c = myStack.Pop();
+			a = " ) "
+			s = b + c + a;
+			MyStack.push(s);
+		}
+		if ( s =='\u043a\u043e\u0441\u0438\u043d\u0443\u0441' ) // 'косинус'
+		{
+			b = " \ cos ( ";
+			c = myStack.Pop();
+			a = " ) "
+			s = b + c + a;
+			MyStack.push(s);
+		}		
+		if ( s == '\u0442\u0430\u043d\u0433\u0435\u043d\u0441' ) // 'тангенс'
+		{
+			b = " \ tan ( ";
+			c = myStack.Pop();
+			a = " ) "
+			s = b + c + a;
+			MyStack.push(s);
+		}	
+		if ( s == '\u043d\u0430\u0442\u0443\u0440\u0430\u043b\u044c\u043d\u044b\u0439\u0020\u043b\u043e\u0433\u0430\u0440\u0438\u0444\u043c')  // 'натуральный логарифм
+		{
+			b = " \ ln ( ";
+			c = myStack.Pop();
+			a = " ) "
+			s = b + c + a;
+			MyStack.push(s);
+		}	
+		if ( s == '\u043a\u0432\u0430\u0434\u0440\u0430\u0442\u043d\u044b\u0439\u0020\u043a\u043e\u0440\u0435\u043d\u044c' ||
+		 '\u043a\u0432\u0430\u0434\u0440\u0430\u0442\u043d\u044b\u0439\u0020\u043a\u043e\u0440\u0435\u043d\u044c\u0020\u0438\u0437' // кв корень
+		{
+			b = " \ sqrt{";
+			c = myStack.Pop();
+			a = "} "
+			s = b + c + a;
+			MyStack.push(s);
+		}	
+	}	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>ModMulDivGtLt</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -235,25 +274,80 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitModMulDivGtLt([NotNull] RussianParser.ModMulDivGtLtContext context);
-			# Parser
-			ExprNode parse(string input){
-    			char mod;
-				while (mod = input.getNextChar()) {
-					if ( mod = ModMulDivGtLt) MyStack.push(mod); }
-            	
-            	while(MyStack.top().precedence >= mod.precedence)
-            	    operator = MyStack.pop();
-            	    # Careful! The second operand was pushed last.
-            	    e2 = MyStack.pop();
-            	    e1 = MyStack.pop();
-            	    MyStack.push(ExprNode(operator, e1, e2));
-	            return 0;
-
-    # There should only be one item on exprStack.
-    # It's the root node, so we return it.
-    return MyStack.pop()
-	
+	void ExitModMulDivGtLt([NotNull] RussianParser.ModMulDivGtLtContext context)
+	{
+		object s;
+		object a;
+		object b;
+		object c;
+        public override double VisitCompileUnit(RussianParser.CompileUnitContext context)
+        {
+            return Listen(context.expression(0));
+        }
+        public override double VisitExpression(RussianrParser.ExpressionContext context)
+        {
+            s = context.expression(0);
+        }
+		if ( s == '\u0440\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u044c\u0020\u043f\u043e\u0020\u043c\u043e\u0434\u0443\u043b\u044e'
+        || '\u043f\u043e\u0020\u043c\u043e\u0434\u0443\u043b\u044e') // mod
+		{
+			a = myStack.Pop(); 
+			b = " \ bmod ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}
+		if ( s == '\u0443\u043c\u043d\u043e\u0436\u0438\u0442\u044c' ||
+		 '\u0443\u043c\u043d\u043e\u0436\u0438\u0442\u044c\u0020\u043d\u0430' || '\u043d\u0430' ) // mul                                                          // 'на'
+		{
+			a = myStack.Pop(); 
+			b = " * ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}		
+		if ( s == '\u0440\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u044c' ||
+		 '\u0440\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u044c\u0020\u043d\u0430' // div
+		{
+			a = myStack.Pop(); 
+			b = " / ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}	
+		if ( s == '\u0431\u043e\u043b\u044c\u0448\u0435' ) // 'больше' '>'
+		{
+			a = myStack.Pop(); 
+			b = " > ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}	
+		if ( s == '\u043c\u0435\u043d\u044c\u0448\u0435' ) // 'меньше' '<'
+		{
+			a = myStack.Pop(); 
+			b = " < ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}
+		if ( s == '\u0431\u043e\u043b\u044c\u0448\u0435\u0020\u0438\u043b\u0438\u0020\u0440\u0430\u0432\u043d\u043e' ) // 'больше' '>' или равно
+		{
+			a = myStack.Pop(); 
+			b = " => ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}	
+		if ( s == '\u043c\u0435\u043d\u044c\u0448\u0435\u0020\u0438\u043b\u0438\u0020\u0440\u0430\u0432\u043d\u043e' ) // 'меньше' '<' или равно
+		{
+			a = myStack.Pop(); 
+			b = " <= ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}	
+	}
 	/// <summary>
 	/// Enter a parse tree produced by the <c>unary</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -265,25 +359,34 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitUnary([NotNull] RussianParser.UnaryContext context);
-			# Parser
-			ExprNode parse(string input){
-    			char un;
-				while (un = input.getNextChar()) {
-					if ( un = UNARY ) MyStack.push(un); }
-            	
-            	while(MyStack.top().precedence >= un.precedence)
-            	    operator = MyStack.pop();
-            	    # Careful! The second operand was pushed last.
-            	    e2 = MyStack.pop();
-            	    e1 = MyStack.pop();
-            	    MyStack.push(ExprNode(operator, e1, e2));
-	            return 0;
-
-    # There should only be one item on exprStack.
-    # It's the root node, so we return it.
-    return MyStack.pop()
-	
+	void ExitUnary([NotNull] RussianParser.UnaryContext context)
+	{
+		object s;
+		object b;
+		object c;        		
+        public override double VisitCompileUnit(RussianParser.CompileUnitContext context)
+        {
+            return Listen(context.expression(0));
+        }
+        public override double VisitExpression(RussianrParser.ExpressionContext context)
+        {
+            s = context.expression(0);
+        }
+		if ( s == '\u043f\u043b\u044e\u0441' || '\u043f\u0440\u0438\u0431\u0430\u0432\u0438\u0442\u044c' ) // плюс
+		{			 
+			b = " + ";
+			c = myStack.Pop();
+			s = b + c;
+			MyStack.push(s);
+		}
+		if ( s == '\u043c\u0438\u043d\u0443\u0441' || '\u043e\u0442\u043d\u044f\u0442\u044c' )  // минус
+		{		
+			b = " - ";
+			c = myStack.Pop();
+			s = b + c;
+			MyStack.push(s);
+		}		
+	}	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>AddSubPow</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -295,25 +398,59 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAddSubPow([NotNull] RussianParser.AddSubPowContext context);
-		# Parser
-			ExprNode parse(string input){
-    			char op;
-				while (op = input.getNextChar()) {
-					if ( op = AddSubPow ) MyStack.push(op); }
-
-            	while(MyStack.top().precedence >= op.precedence)
-            	    operator = MyStack.pop();
-            	    # Careful! The second operand was pushed last.
-            	    e2 = MyStack.pop();
-            	    e1 = MyStack.pop();
-            	    MyStack.push(ExprNode(operator, e1, e2));
-				return 0;
-
-    # There should only be one item on exprStack.
-    # It's the root node, so we return it.
-    	return MyStack.pop();
-	
+	void ExitAddSubPow([NotNull] RussianParser.AddSubPowContext context)
+	{
+		object s;
+		object a;
+		object b;
+		object c;
+		public object
+		{
+        	get
+        	{
+            	return Num;
+        	}
+ 
+        	set
+        	{
+           		Num = value;
+        	}
+        public override double VisitCompileUnit(RussianParser.CompileUnitContext context)
+        {
+            return Listen(context.expression(0));
+        }
+        public override double VisitExpression(RussianrParser.ExpressionContext context)
+        {
+            s = context.expression(0);
+        }
+		//return Visit(context.expr());
+		if ( s == '\u043f\u043b\u044e\u0441' || '\u043f\u0440\u0438\u0431\u0430\u0432\u0438\u0442\u044c' ) // плюс
+		{
+			a = myStack.Pop(); 
+			b = " + ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}
+		if ( s == '\u043c\u0438\u043d\u0443\u0441' || '\u043e\u0442\u043d\u044f\u0442\u044c' )  // минус
+		{
+			a = myStack.Pop(); 
+			b = " - ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}
+		if ( s =='\u0432\u043e\u0437\u0432\u0435\u0441\u0442\u0438\u0020\u0432\u0020\u0441\u0442\u0435\u043f\u0435\u043d\u044c' ||
+		 '\u0432\u0020\u0441\u0442\u0435\u043f\u0435\u043d\u044c' ||
+		  '\u0432\u0020\u0441\u0442\u0435\u043f\u0435\u043d\u0438' )  // 'в степень'
+		{
+			a = myStack.Pop(); 
+			b = " ^ ";
+			c = myStack.Pop();
+			s = a + b + c;
+			MyStack.push(s);
+		}		
+	}
 	/// <summary>
 	/// Enter a parse tree produced by the <c>num</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
@@ -325,15 +462,24 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitNum([NotNull] RussianParser.NumContext context);
-	# Parser
-			ExprNode parse(string input){
-    			char b;
-				while (b = input.getNextChar()) {
-					if ( b = NUM ) MyStack.push(b); }
-	            return 0;
-		    	return MyStack.pop();
-
+	void ExitNum([NotNull] RussianParser.NumContext context)
+	{
+		object s;		
+		public double Num
+		{
+        	get
+        	{
+            	return Num;
+        	}
+ 
+        	set
+        	{
+           		Num = value;
+        	}
+		}
+		s = Num;
+        MyStack.push(s); 
+	}
 	/// <summary>
 	/// Enter a parse tree produced by the <c>id</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
@@ -345,18 +491,24 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitId([NotNull] RussianParser.IdContext context);
-			# Parser
-			ExprNode parse(string input){
-    			char c;
-				while (c = input.getNextChar()) {
-					if ( c = ID ) MyStack.push(c); }
-	            return 0;
-
-    # There should only be one item on exprStack.
-    # It's the root node, so we return it.
-    	return MyStack.pop();
-	
+	void ExitId([NotNull] RussianParser.IdContext context)
+	{
+		object s;		
+		public string Id
+		{
+        	get
+        	{
+            	return Id;
+        	}
+ 
+        	set
+        	{
+           		Id = value;
+        	}
+		}
+		s = Id;
+        MyStack.push(s); 	
+	}	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>parens</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
