@@ -19,12 +19,11 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
 using IParseTreeListener = Antlr4.Runtime.Tree.IParseTreeListener;
 using IToken = Antlr4.Runtime.IToken;
 
-Stack MyStack = new MyStack();
+		Stack MyStack = new MyStack();
 
 /// <summary>
 /// This interface defines a complete listener for a parse tree produced by
@@ -409,12 +408,6 @@ public interface IRussianListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitAddSubPow([NotNull] RussianParser.AddSubPowContext context)
 	{
-		ITokenStream tokens = parser.getITokenStream();
-		ID = tokens.getText(context.Id());
-		String args = tokens.getText(context.Id());
-		MyStack.push(args);
-	}
-	{
 		object s;
 		object a;
 		object b;
@@ -471,10 +464,21 @@ public interface IRussianListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitNum([NotNull] RussianParser.NumContext context)
 	{
-		ITokenStream tokens = parser.getITokenStream();
-		NUM = tokens.getText(context.Num());
-		String args = tokens.getText(context.Num());
-		MyStack.push(args);
+		object s;		
+		public object Node
+		{
+        	get
+        	{
+            	return Node;
+        	}
+ 
+        	set
+        	{
+           		Node = value;
+        	}
+		}
+		s = Num;
+        MyStack.push(s); 
 	}
 	/// <summary>
 	/// Enter a parse tree produced by the <c>id</c>
@@ -489,10 +493,21 @@ public interface IRussianListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitId([NotNull] RussianParser.IdContext context)
 	{
-		ITokenStream tokens = parser.getITokenStream();
-		ID = tokens.getText(context.Id());
-		String args = tokens.getText(context.Id());
-		MyStack.push(args);
+		object s;		
+		public object Node
+		{
+        	get
+        	{
+            	return Node;
+        	}
+ 
+        	set
+        	{
+           		Node = value;
+        	}
+		}
+		s = Node;
+        MyStack.push(s); 	
 	}	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>parens</c>

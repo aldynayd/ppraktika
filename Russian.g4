@@ -10,33 +10,49 @@ options
 prog
     : stat+
     ;
+
 stat:
-    stat1* op=ASSIGN? stat1* NL          # assign;
+    stat1* op=ASSIGN? stat1* NL          # assign
+    ;
+    
 stat1
     : expr                               # printExpr
     ;
 
 expr
     : 
-      expr op=(MOD|MUL|DIV|GT|LT|GTA|LTA) expr        # ModMulDivGtLt
-    | expr op=(ADD|SUB|POW) expr        # AddSubPow
-    | op=(SIN|COS|TAN|LN|LOG|SQRT) expr     #SinCosTanLnSqrt
-    | ID '(' expr ')'                   # call
-    | sign=('+'|'-') primary            # unary
-    | primary                           # prim
+      expr MOD expr                 # Mod
+    | expr MUL expr                 # Mul
+    | expr DIV expr                 # Div
+    | expr GT expr                  # Gt
+    | expr LT expr                  # Lt
+    | expr GTA expr                 # Gta
+    | expr LTA expr                 # Lta
+    | expr ADD expr                 # Add
+    | expr SUB expr                 # Sub
+    | expr POW expr                 # Pow
+    | SIN expr                      # Sin
+    | COS expr                      # Cos
+    | TAN expr                      # Tan
+    | LN expr                       # Ln
+    | SQRT expr                     # Sqrt
+    | ID LL expr RL                      # call
+    | '+' primary                 # unaryplus
+    | '-' primary                 # unaryminus
+    | primary                            # prim
     ;
-
+    
 primary
     : NUM                               # num
     | ID                                # id
-    | '(' expr+ ')'                      # parens
+    | LL expr+ RL                       # parens
     ;
 
 MOD : '\u0440\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u044c\u0020\u043f\u043e\u0020\u043c\u043e\u0434\u0443\u043b\u044e'
         // 'разделить по модулю'
     | '\u043f\u043e\u0020\u043c\u043e\u0434\u0443\u043b\u044e' ; // 'по модулю'
 
-MUL : '\u0443\u043c\u043d\u043e\u0436\u0438\u0442\u044c' *                      // 'умножить'
+MUL : '\u0443\u043c\u043d\u043e\u0436\u0438\u0442\u044c'                       // 'умножить'
     | '\u0443\u043c\u043d\u043e\u0436\u0438\u0442\u044c\u0020\u043d\u0430'      // 'умножить на'
     | '\u043d\u0430' ;                                                          // 'на'
 
@@ -69,6 +85,9 @@ GTA : '\u0431\u043e\u043b\u044c\u0448\u0435\u0020\u0438\u043b\u0438\u0020\u0440\
     // 'больше или равно' '=>'
 LTA : '\u043c\u0435\u043d\u044c\u0448\u0435\u0020\u0438\u043b\u0438\u0020\u0440\u0430\u0432\u043d\u043e'; 
     // 'меньше или равно' '<='
+
+LL: '\u043b\u0435\u0432\u0430\u044f\u0020\u0441\u043a\u043e\u0431\u043a\u0430'; // 'левая скобка'
+RL: '\u043f\u0440\u0430\u0432\u0430\u044f\u0020\u0441\u043a\u043e\u0431\u043a\u0430'; // 'правая скобка'
 ID  : Letter (Letter|Digit)* ;
 
 NUM : INT
