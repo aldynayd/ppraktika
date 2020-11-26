@@ -471,10 +471,11 @@ public interface IRussianListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitNum([NotNull] RussianParser.NumContext context)
 	{
+		object NUM;
 		ITokenStream tokens = parser.getITokenStream();
 		NUM = tokens.getText(context.Num());
-		String args = tokens.getText(context.Num());
-		MyStack.push(args);
+		//String args = tokens.getText(context.Num());
+		MyStack.push(NUM);
 	}
 	/// <summary>
 	/// Enter a parse tree produced by the <c>id</c>
@@ -489,10 +490,11 @@ public interface IRussianListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitId([NotNull] RussianParser.IdContext context)
 	{
+		object ID;
 		ITokenStream tokens = parser.getITokenStream();
 		ID = tokens.getText(context.Id());
-		String args = tokens.getText(context.Id());
-		MyStack.push(args);
+		//String args = tokens.getText(context.Id());
+		MyStack.push(ID);
 	}	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>parens</c>
