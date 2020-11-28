@@ -75,6 +75,160 @@ public partial class RussianBaseListener : IRussianListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPrintExpr([NotNull] RussianParser.PrintExprContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Tan</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTan([NotNull] RussianParser.TanContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Tan</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTan([NotNull] RussianParser.TanContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Add</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAdd([NotNull] RussianParser.AddContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Add</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAdd([NotNull] RussianParser.AddContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Sub</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSub([NotNull] RussianParser.SubContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Sub</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSub([NotNull] RussianParser.SubContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Ln</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLn([NotNull] RussianParser.LnContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Ln</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLn([NotNull] RussianParser.LnContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>unaryplus</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUnaryplus([NotNull] RussianParser.UnaryplusContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>unaryplus</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUnaryplus([NotNull] RussianParser.UnaryplusContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Mod</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMod([NotNull] RussianParser.ModContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Mod</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMod([NotNull] RussianParser.ModContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Mul</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMul([NotNull] RussianParser.MulContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Mul</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMul([NotNull] RussianParser.MulContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Cos</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCos([NotNull] RussianParser.CosContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Cos</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCos([NotNull] RussianParser.CosContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Sqrt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSqrt([NotNull] RussianParser.SqrtContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Sqrt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSqrt([NotNull] RussianParser.SqrtContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Lt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLt([NotNull] RussianParser.LtContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Lt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLt([NotNull] RussianParser.LtContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Gt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGt([NotNull] RussianParser.GtContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Gt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGt([NotNull] RussianParser.GtContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by the <c>call</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -88,6 +242,20 @@ public partial class RussianBaseListener : IRussianListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitCall([NotNull] RussianParser.CallContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Div</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDiv([NotNull] RussianParser.DivContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Div</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDiv([NotNull] RussianParser.DivContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>prim</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -103,61 +271,75 @@ public partial class RussianBaseListener : IRussianListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitPrim([NotNull] RussianParser.PrimContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>SinCosTanLnSqrt</c>
+	/// Enter a parse tree produced by the <c>Gta</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSinCosTanLnSqrt([NotNull] RussianParser.SinCosTanLnSqrtContext context) { }
+	public virtual void EnterGta([NotNull] RussianParser.GtaContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>SinCosTanLnSqrt</c>
+	/// Exit a parse tree produced by the <c>Gta</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSinCosTanLnSqrt([NotNull] RussianParser.SinCosTanLnSqrtContext context) { }
+	public virtual void ExitGta([NotNull] RussianParser.GtaContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>ModMulDivGtLt</c>
+	/// Enter a parse tree produced by the <c>Lta</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterModMulDivGtLt([NotNull] RussianParser.ModMulDivGtLtContext context) { }
+	public virtual void EnterLta([NotNull] RussianParser.LtaContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>ModMulDivGtLt</c>
+	/// Exit a parse tree produced by the <c>Lta</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitModMulDivGtLt([NotNull] RussianParser.ModMulDivGtLtContext context) { }
+	public virtual void ExitLta([NotNull] RussianParser.LtaContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>unary</c>
+	/// Enter a parse tree produced by the <c>Sin</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterUnary([NotNull] RussianParser.UnaryContext context) { }
+	public virtual void EnterSin([NotNull] RussianParser.SinContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>unary</c>
+	/// Exit a parse tree produced by the <c>Sin</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitUnary([NotNull] RussianParser.UnaryContext context) { }
+	public virtual void ExitSin([NotNull] RussianParser.SinContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>AddSubPow</c>
+	/// Enter a parse tree produced by the <c>Pow</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAddSubPow([NotNull] RussianParser.AddSubPowContext context) { }
+	public virtual void EnterPow([NotNull] RussianParser.PowContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>AddSubPow</c>
+	/// Exit a parse tree produced by the <c>Pow</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAddSubPow([NotNull] RussianParser.AddSubPowContext context) { }
+	public virtual void ExitPow([NotNull] RussianParser.PowContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>unaryminus</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUnaryminus([NotNull] RussianParser.UnaryminusContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>unaryminus</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUnaryminus([NotNull] RussianParser.UnaryminusContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>num</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.

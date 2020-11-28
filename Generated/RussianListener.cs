@@ -19,12 +19,9 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
 using IParseTreeListener = Antlr4.Runtime.Tree.IParseTreeListener;
 using IToken = Antlr4.Runtime.IToken;
-
-Stack MyStack = new MyStack();
 
 /// <summary>
 /// This interface defines a complete listener for a parse tree produced by
@@ -55,41 +52,6 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitAssign([NotNull] RussianParser.AssignContext context);
-
-			# Parser
-			ExprNode parse(string input){
-    			char c;
-				while (c = input.getNextChar()) {
-					if ( c = ASSIGN ) MyStack.push(c); }
-
-            	while(operatorStack.top().precedence >= c.precedence)
-            	    operator = operatorStack.pop();
-            	    # Careful! The second operand was pushed last.
-            	    e2 = exprStack.pop();
-            	    e1 = exprStack.pop();
-            	    exprStack.push(ExprNode(operator, e1, e2));
-
-            		operatorStack.push(c);
-
-        		else if (c == ')'){
-            		while (operatorStack.top() != '('):
-            	    operator = operatorStack.pop()
-            	    # Careful! The second operand was pushed last.
-            	    e2 = exprStack.pop()
-            	    e1 = exprStack.pop()
-           		    exprStack.push(ExprNode(operator, e1, e2))
-				}
-            # Pop the '(' off the operator stack.
-            operatorStack.pop()
-
-        else:
-            error()
-            return 0;
-
-    # There should only be one item on exprStack.
-    # It's the root node, so we return it.
-    return exprStack.pop()
-	
 	/// <summary>
 	/// Enter a parse tree produced by the <c>printExpr</c>
 	/// labeled alternative in <see cref="RussianParser.stat1"/>.
@@ -102,41 +64,138 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPrintExpr([NotNull] RussianParser.PrintExprContext context);
-			# Parser
-			ExprNode parse(string input){
-    			char c;
-				while (c = input.getNextChar()) {
-					if ( c = EXPR ) MyStack.push(c); }
-
-            	while(operatorStack.top().precedence >= c.precedence)
-            	    operator = operatorStack.pop();
-            	    # Careful! The second operand was pushed last.
-            	    e2 = exprStack.pop();
-            	    e1 = exprStack.pop();
-            	    exprStack.push(ExprNode(operator, e1, e2));
-
-            		operatorStack.push(c);
-
-        		else if (c == ')'){
-            		while (operatorStack.top() != '('):
-            	    operator = operatorStack.pop()
-            	    # Careful! The second operand was pushed last.
-            	    e2 = exprStack.pop()
-            	    e1 = exprStack.pop()
-           		    exprStack.push(ExprNode(operator, e1, e2))
-				}
-            # Pop the '(' off the operator stack.
-            operatorStack.pop()
-
-        else:
-            error()
-            return 0;
-
-    # There should only be one item on exprStack.
-    # It's the root node, so we return it.
-    return exprStack.pop()
-	
-
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Tan</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTan([NotNull] RussianParser.TanContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Tan</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTan([NotNull] RussianParser.TanContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Add</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAdd([NotNull] RussianParser.AddContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Add</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAdd([NotNull] RussianParser.AddContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Sub</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSub([NotNull] RussianParser.SubContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Sub</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSub([NotNull] RussianParser.SubContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Ln</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLn([NotNull] RussianParser.LnContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Ln</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLn([NotNull] RussianParser.LnContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>unaryplus</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterUnaryplus([NotNull] RussianParser.UnaryplusContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>unaryplus</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitUnaryplus([NotNull] RussianParser.UnaryplusContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Mod</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMod([NotNull] RussianParser.ModContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Mod</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMod([NotNull] RussianParser.ModContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Mul</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMul([NotNull] RussianParser.MulContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Mul</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMul([NotNull] RussianParser.MulContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Cos</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCos([NotNull] RussianParser.CosContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Cos</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCos([NotNull] RussianParser.CosContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Sqrt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSqrt([NotNull] RussianParser.SqrtContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Sqrt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSqrt([NotNull] RussianParser.SqrtContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Lt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLt([NotNull] RussianParser.LtContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Lt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLt([NotNull] RussianParser.LtContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Gt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterGt([NotNull] RussianParser.GtContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Gt</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitGt([NotNull] RussianParser.GtContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>call</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -149,41 +208,18 @@ public interface IRussianListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCall([NotNull] RussianParser.CallContext context);
-# Parser
-			ExprNode parse(string input){
-    			char c;
-				while (c = input.getNextChar()) {
-					if ( c = ASSIGN ) MyStack.push(c); }
-
-            	while(operatorStack.top().precedence >= c.precedence)
-            	    operator = operatorStack.pop();
-            	    # Careful! The second operand was pushed last.
-            	    e2 = exprStack.pop();
-            	    e1 = exprStack.pop();
-            	    exprStack.push(ExprNode(operator, e1, e2));
-
-            		operatorStack.push(c);
-
-        		else if (c == ')'){
-            		while (operatorStack.top() != '('):
-            	    operator = operatorStack.pop()
-            	    # Careful! The second operand was pushed last.
-            	    e2 = exprStack.pop()
-            	    e1 = exprStack.pop()
-           		    exprStack.push(ExprNode(operator, e1, e2))
-				}
-            # Pop the '(' off the operator stack.
-            operatorStack.pop()
-
-        else:
-            error()
-            return 0;
-
-    # There should only be one item on exprStack.
-    # It's the root node, so we return it.
-    return exprStack.pop()
-	
-
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Div</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDiv([NotNull] RussianParser.DivContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Div</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDiv([NotNull] RussianParser.DivContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>prim</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
@@ -195,269 +231,67 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitPrim([NotNull] RussianParser.PrimContext context)
-
+	void ExitPrim([NotNull] RussianParser.PrimContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>SinCosTanLnSqrt</c>
+	/// Enter a parse tree produced by the <c>Gta</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterSinCosTanLnSqrt([NotNull] RussianParser.SinCosTanLnSqrtContext context);
+	void EnterGta([NotNull] RussianParser.GtaContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>SinCosTanLnSqrt</c>
+	/// Exit a parse tree produced by the <c>Gta</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitSinCosTanLnSqrt([NotNull] RussianParser.SinCosTanLnSqrtContext context)
-		{
-		object s;
-		object a;
-		object b;
-		object c;
-        public override double VisitCompileUnit(RussianParser.CompileUnitContext context)
-        {
-            return Listen(context.expression(0));
-        }
-        public override double VisitExpression(RussianrParser.ExpressionContext context)
-        {
-            s = context.expression(0);
-        }
-		if ( s == '\u0441\u0438\u043d\u0443\u0441' ) // 'синус'
-		{
-			b = " \ sin ( ";
-			c = myStack.Pop();
-			a = " ) "
-			s = b + c + a;
-			MyStack.push(s);
-		}
-		if ( s =='\u043a\u043e\u0441\u0438\u043d\u0443\u0441' ) // 'косинус'
-		{
-			b = " \ cos ( ";
-			c = myStack.Pop();
-			a = " ) "
-			s = b + c + a;
-			MyStack.push(s);
-		}		
-		if ( s == '\u0442\u0430\u043d\u0433\u0435\u043d\u0441' ) // 'тангенс'
-		{
-			b = " \ tan ( ";
-			c = myStack.Pop();
-			a = " ) "
-			s = b + c + a;
-			MyStack.push(s);
-		}	
-		if ( s == '\u043d\u0430\u0442\u0443\u0440\u0430\u043b\u044c\u043d\u044b\u0439\u0020\u043b\u043e\u0433\u0430\u0440\u0438\u0444\u043c')  // 'натуральный логарифм
-		{
-			b = " \ ln ( ";
-			c = myStack.Pop();
-			a = " ) "
-			s = b + c + a;
-			MyStack.push(s);
-		}	
-		if ( s == '\u043a\u0432\u0430\u0434\u0440\u0430\u0442\u043d\u044b\u0439\u0020\u043a\u043e\u0440\u0435\u043d\u044c' ||
-		 '\u043a\u0432\u0430\u0434\u0440\u0430\u0442\u043d\u044b\u0439\u0020\u043a\u043e\u0440\u0435\u043d\u044c\u0020\u0438\u0437' // кв корень
-		{
-			b = " \ sqrt{";
-			c = myStack.Pop();
-			a = "} "
-			s = b + c + a;
-			MyStack.push(s);
-		}	
-	}	
+	void ExitGta([NotNull] RussianParser.GtaContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>ModMulDivGtLt</c>
+	/// Enter a parse tree produced by the <c>Lta</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterModMulDivGtLt([NotNull] RussianParser.ModMulDivGtLtContext context);
+	void EnterLta([NotNull] RussianParser.LtaContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>ModMulDivGtLt</c>
+	/// Exit a parse tree produced by the <c>Lta</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitModMulDivGtLt([NotNull] RussianParser.ModMulDivGtLtContext context)
-	{
-		object s;
-		object a;
-		object b;
-		object c;
-        public object Node
-		{
-        	get
-        	{
-            	return Node;
-        	}
- 
-        	set
-        	{
-           		Node = value;
-        	}
-		s = Node;
-		if ( s == '\u0440\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u044c\u0020\u043f\u043e\u0020\u043c\u043e\u0434\u0443\u043b\u044e'
-        || '\u043f\u043e\u0020\u043c\u043e\u0434\u0443\u043b\u044e') // mod
-		{
-			a = myStack.Pop(); 
-			b = " \ bmod ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}
-		if ( s == '\u0443\u043c\u043d\u043e\u0436\u0438\u0442\u044c' ||
-		 '\u0443\u043c\u043d\u043e\u0436\u0438\u0442\u044c\u0020\u043d\u0430' || '\u043d\u0430' ) // mul                                                          // 'на'
-		{
-			a = myStack.Pop(); 
-			b = " * ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}		
-		if ( s == '\u0440\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u044c' ||
-		 '\u0440\u0430\u0437\u0434\u0435\u043b\u0438\u0442\u044c\u0020\u043d\u0430' // div
-		{
-			a = myStack.Pop(); 
-			b = " / ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}	
-		if ( s == '\u0431\u043e\u043b\u044c\u0448\u0435' ) // 'больше' '>'
-		{
-			a = myStack.Pop(); 
-			b = " > ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}	
-		if ( s == '\u043c\u0435\u043d\u044c\u0448\u0435' ) // 'меньше' '<'
-		{
-			a = myStack.Pop(); 
-			b = " < ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}
-		if ( s == '\u0431\u043e\u043b\u044c\u0448\u0435\u0020\u0438\u043b\u0438\u0020\u0440\u0430\u0432\u043d\u043e' ) // 'больше' '>' или равно
-		{
-			a = myStack.Pop(); 
-			b = " => ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}	
-		if ( s == '\u043c\u0435\u043d\u044c\u0448\u0435\u0020\u0438\u043b\u0438\u0020\u0440\u0430\u0432\u043d\u043e' ) // 'меньше' '<' или равно
-		{
-			a = myStack.Pop(); 
-			b = " <= ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}	
-	}
+	void ExitLta([NotNull] RussianParser.LtaContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>unary</c>
+	/// Enter a parse tree produced by the <c>Sin</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterUnary([NotNull] RussianParser.UnaryContext context);
+	void EnterSin([NotNull] RussianParser.SinContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>unary</c>
+	/// Exit a parse tree produced by the <c>Sin</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitUnary([NotNull] RussianParser.UnaryContext context)
-	{
-		object s;
-		object b;
-		object c;        		
-        public object Node
-		{
-        	get
-        	{
-            	return Node;
-        	}
- 
-        	set
-        	{
-           		Node = value;
-        	}
-		s = Node;
-		if ( s == '\u043f\u043b\u044e\u0441' || '\u043f\u0440\u0438\u0431\u0430\u0432\u0438\u0442\u044c' ) // плюс
-		{			 
-			b = " + ";
-			c = myStack.Pop();
-			s = b + c;
-			MyStack.push(s);
-		}
-		if ( s == '\u043c\u0438\u043d\u0443\u0441' || '\u043e\u0442\u043d\u044f\u0442\u044c' )  // минус
-		{		
-			b = " - ";
-			c = myStack.Pop();
-			s = b + c;
-			MyStack.push(s);
-		}		
-	}	
+	void ExitSin([NotNull] RussianParser.SinContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>AddSubPow</c>
+	/// Enter a parse tree produced by the <c>Pow</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterAddSubPow([NotNull] RussianParser.AddSubPowContext context);
+	void EnterPow([NotNull] RussianParser.PowContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>AddSubPow</c>
+	/// Exit a parse tree produced by the <c>Pow</c>
 	/// labeled alternative in <see cref="RussianParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitAddSubPow([NotNull] RussianParser.AddSubPowContext context)
-	{
-		ITokenStream tokens = parser.getITokenStream();
-		ID = tokens.getText(context.Id());
-		String args = tokens.getText(context.Id());
-		MyStack.push(args);
-	}
-	{
-		object s;
-		object a;
-		object b;
-		object c;
-		public object Node
-		{
-        	get
-        	{
-            	return Node;
-        	}
- 
-        	set
-        	{
-           		Node = value;
-        	}
-        s = Node;
-		if ( s == '\u043f\u043b\u044e\u0441' || '\u043f\u0440\u0438\u0431\u0430\u0432\u0438\u0442\u044c' ) // плюс
-		{
-			a = myStack.Pop(); 
-			b = " + ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}
-		if ( s == '\u043c\u0438\u043d\u0443\u0441' || '\u043e\u0442\u043d\u044f\u0442\u044c' )  // минус
-		{
-			a = myStack.Pop(); 
-			b = " - ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}
-		if ( s =='\u0432\u043e\u0437\u0432\u0435\u0441\u0442\u0438\u0020\u0432\u0020\u0441\u0442\u0435\u043f\u0435\u043d\u044c' ||
-		 '\u0432\u0020\u0441\u0442\u0435\u043f\u0435\u043d\u044c' ||
-		  '\u0432\u0020\u0441\u0442\u0435\u043f\u0435\u043d\u0438' )  // 'в степень'
-		{
-			a = myStack.Pop(); 
-			b = " ^ ";
-			c = myStack.Pop();
-			s = a + b + c;
-			MyStack.push(s);
-		}		
-	}
+	void ExitPow([NotNull] RussianParser.PowContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>unaryminus</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterUnaryminus([NotNull] RussianParser.UnaryminusContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>unaryminus</c>
+	/// labeled alternative in <see cref="RussianParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitUnaryminus([NotNull] RussianParser.UnaryminusContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>num</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
@@ -469,14 +303,7 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitNum([NotNull] RussianParser.NumContext context)
-	{
-		object NUM;
-		ITokenStream tokens = parser.getITokenStream();
-		NUM = tokens.getText(context.Num());
-		//String args = tokens.getText(context.Num());
-		MyStack.push(NUM);
-	}
+	void ExitNum([NotNull] RussianParser.NumContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>id</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
@@ -488,14 +315,7 @@ public interface IRussianListener : IParseTreeListener {
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitId([NotNull] RussianParser.IdContext context)
-	{
-		object ID;
-		ITokenStream tokens = parser.getITokenStream();
-		ID = tokens.getText(context.Id());
-		//String args = tokens.getText(context.Id());
-		MyStack.push(ID);
-	}	
+	void ExitId([NotNull] RussianParser.IdContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>parens</c>
 	/// labeled alternative in <see cref="RussianParser.primary"/>.
