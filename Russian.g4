@@ -36,10 +36,9 @@ expr
     | TAN expr                      # Tan
     | LN expr                       # Ln
     | SQRT expr                     # Sqrt
-    | ID LL expr RL                      # call
-    | '+' primary                 # unaryplus
-    | '-' primary                 # unaryminus
-    | primary                            # prim
+    | '+' primary                   # unaryplus
+    | '-' primary                   # unaryminus
+    | primary                       # prim
     ;
     
 primary

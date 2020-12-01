@@ -5,17 +5,20 @@ using IToken = Antlr4.Runtime.IToken;
 
 class Listener : IRussianListener
 {
-    public static void Main(string[] args)
-    {
+//@Override //- посмотреть нужно добавить перед каждой функцией
+        void EnterProg([NotNull] RussianParser.ProgContext context)
+        {
+            Stack<string> MyStack = new Stack<string>();
+        }
         void ExitProg([NotNull] RussianParser.ProgContext context)
         {
-            object a;                                                      //?????
-            a = MyStack.Pop();
-            MyStack.Push(a);
+            string prog, a;                                               
+            a = MyStack.Pop(); 
+            prog = "$$" + a + "$$";                                      
         }
         void ExitAssign([NotNull] RussianParser.AssignContext context)
         {
-            object a, b, assign;
+            string a, b, assign;
             a = MyStack.Pop();
             b = MyStack.Pop();
             assign = a + " = " + b;
@@ -23,20 +26,20 @@ class Listener : IRussianListener
         }
         void ExitPrintExpr([NotNull] RussianParser.PrintExprContext context)
         {
-            object expr;
+            string expr;
             expr = MyStack.Pop();
             MyStack.Push(expr);
         }
         void ExitTan([NotNull] RussianParser.TanContext context)
         {
-            object tan, a;
+            string tan, a;
             a = MyStack.Pop();
             tan = " \tan " + a;
             MyStack.Push(tan);
         }
         void ExitAdd([NotNull] RussianParser.AddContext context)
         {
-            object add, a, b;
+            string add, a, b;
             a = MyStack.Pop();
             b = MyStack.Pop();
             add = a + " + " + b;
@@ -44,7 +47,7 @@ class Listener : IRussianListener
         }
         void ExitSub([NotNull] RussianParser.SubContext context)
         {
-            object add, a, b;
+            string add, a, b;
             a = MyStack.Pop();
             b = MyStack.Pop();
             add = a + " - " + b;
@@ -52,21 +55,21 @@ class Listener : IRussianListener
         }
         void ExitLn([NotNull] RussianParser.LnContext context)
         {
-            object ln, a;
+            string ln, a;
             a = MyStack.Pop();
             ln = " \ln " + a;
             MyStack.Push(ln);
         }
         void ExitUnaryplus([NotNull] RussianParser.UnaryplusContext context)
         {
-            object Unaryplus, a;
+            string Unaryplus, a;
             a = MyStack.Pop();
             Unaryplus = " + " + a;
             MyStack.push(Unaryplus);
         }
         void ExitMod([NotNull] RussianParser.ModContext context)
         {
-            object mod, a, b;
+            string mod, a, b;
             a = MyStack.Pop();
             b = MyStack.Pop();
             mod = a + " \bmod " + b;
@@ -74,7 +77,7 @@ class Listener : IRussianListener
         }
         void ExitMul([NotNull] RussianParser.MulContext context)
         {
-            object mul, a, b;
+            string mul, a, b;
             a = MyStack.Pop();
             b = MyStack.Pop();
             mul = a + " * " + b;
@@ -82,21 +85,21 @@ class Listener : IRussianListener
         }
         void ExitCos([NotNull] RussianParser.CosContext context)
         {
-            object cos, a;
+            string cos, a;
             a = MyStack.Pop();
             cos = " \cos (" + a + ")";
             MyStack.Push(cos);
         }
         void ExitSqrt([NotNull] RussianParser.SqrtContext context)
         {
-            object sqrt, a;
+            string sqrt, a;
             a = MyStack.Pop();
             sqrt = " \sqrt{" + a + "} ";
             MyStack.Push(sqrt);
         }
         void ExitLt([NotNull] RussianParser.LtContext context)
         {
-            object lt, a, b;
+            string lt, a, b;
             a = MyStack.Pop();
             b = MyStack.Pop();
             lt = a + " < " + b;
@@ -104,27 +107,25 @@ class Listener : IRussianListener
         }
         void ExitGt([NotNull] RussianParser.GtContext context)
         {
-            object gt, a, b;
+            string gt, a, b;
             a = MyStack.Pop();
             b = MyStack.Pop();
             gt = a + " > " + b;
             MyStack.Push(gt);
-        }
-        void ExitCall([NotNull] RussianParser.CallContext context)
-        {
-                                                                        //?????
         }
         void ExitDiv([NotNull] RussianParser.DivContext context)
         {
             object div, a, b;
             a = MyStack.Pop();
             b = MyStack.Pop();
-            div = a + " / " + b;
+            div = " /frac{" + a + "}{" + b + "}";
             MyStack.Push(div);
         }
         void ExitPrim([NotNull] RussianParser.PrimContext context)
         {
-                                                                            //??????
+            string prim;
+            prim = MyStack.Pop();
+            MyStack.Push(prim);
         }
         void ExitGta([NotNull] RussianParser.GtaContext context)
         {
@@ -187,5 +188,5 @@ class Listener : IRussianListener
             parens = " ( " + a + " ) ";
             MyStack.Push(parens);
         }
-    }
+    
 }
